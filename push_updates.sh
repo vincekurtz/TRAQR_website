@@ -9,7 +9,7 @@
 
 port=1235   # port to use for ssh tunnel
 
-src="_site/"
+src="_site/*"
 dest="stu_phys@127.0.0.1:mypages/traqr/"
 
 # Check to make sure
