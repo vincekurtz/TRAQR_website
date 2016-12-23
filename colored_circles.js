@@ -215,6 +215,7 @@ function SensorControl(controlDiv, map) {
     controlBox.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
     controlBox.style.cursor = 'pointer';
     controlBox.style.marginBottom = '22px';
+    controlBox.style.marginTop = '10px';
     controlBox.style.textAlign = 'center';
     controlBox.style.display = 'table';
     controlBox.title = 'Select which data to display';
