@@ -32,3 +32,4 @@ gems:
 exclude:
   - Gemfile
   - Gemfile.lock
+  - push_updates.sh
