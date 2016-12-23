@@ -9,7 +9,7 @@
  *
  */
 
-var data_location = 'fake_data.js'
+var data_location = 'datafiles/fake_data.js'
 
 // global vars
 var map;
