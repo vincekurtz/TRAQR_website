@@ -24,12 +24,11 @@ then
 	# Establish ssh tunnel
 	ssh -nNT -L $port:people.goshen.edu:22 vjkurtz@maxx.goshen.edu &
 	PID=$!
+    sleep 2  # wait for tunnel to initialize
 	echo "tunnel PID is $PID"
 
 	echo "Copying $src to $dest"
-	sleep 2  # make sure the tunnel is properly initialized
     scp -r -P $port $src $dest
-	sleep 2
     echo "done copying"
 
     echo "closing tunnel"
