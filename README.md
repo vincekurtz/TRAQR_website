@@ -21,8 +21,6 @@ Make sure `baseurl` and `url` are set to empty strings in `_config.yml`.
 - Add button to enable scrolling zoom on the map
 - Disable map buttons if screen too small (mobile)
 - Add people page?
-- Update header color to GC purple
 - Add more detailed info on maps page
-- Get rid of unneeded template stuff
 - Add some sort of time filtering to the map
 - [for much later] add pages on the device or other project developments

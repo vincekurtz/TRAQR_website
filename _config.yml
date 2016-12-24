@@ -18,17 +18,15 @@ subtitle: TRAQR
 sponsor: Goshen College Physics
 contact: "PI: John Ross Buschert"
 sponsorsite: https://www.goshen.edu/
-description: > # this means to ignore newlines until "baseurl:"
+description: > # this means to ignore newlines until "email:"
   We are a research group at Goshen College investigating air quality in
   Elkhart County. Our work centers around designing and deploying a
   inexpensive, portable datalogger that monitors air quality in real time. 
 email: johnrb@goshen.edu
-#baseurl: "/~stu_phys/traqr" # the subpath of your site, e.g. /blog
-#url: "http://people.goshen.edu" # the base hostname & protocol for your site, e.g. http://example.com
-baseurl: "" # just for local testing
-url: ""
-#twitter_username: jekyllrb
-#github_username:  jekyll
+baseurl: "/~stu_phys/traqr" # the subpath of your site, e.g. /blog
+url: "http://people.goshen.edu" # the base hostname & protocol for your site, e.g. http://example.com
+#baseurl: "" # just for local testing
+#url: ""
 
 # Build settings
 markdown: kramdown
