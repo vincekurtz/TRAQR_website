@@ -2,7 +2,7 @@
 
   <div class="wrapper">
 
-    <h2 class="footer-heading">{{ site.title | escape }}</h2>
+      <h2 class="footer-heading"><i>{{ site.subtitle }}</i> &nbsp;{{ site.title | escape }}</h2>
 
     <div class="footer-col-wrapper">
       <div class="footer-col footer-col-1">
@@ -10,13 +10,13 @@
           <li>
             {% if site.author %}
               {{ site.author | escape }}
-            {% else %}
-              {{ site.subtitle | escape }}
             {% endif %}
             </li>
-            <br />
             {% if site.sponsor %}
             <li><a href="{{ site.sponsorsite }}">{{ site.sponsor }}</a></li>
+            {% endif %}
+            {% if site.contact %}
+              {{ site.contact | escape }}
             {% endif %}
             {% if site.email %}
             <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
@@ -24,25 +24,14 @@
         </ul>
       </div>
 
-      <div class="footer-col footer-col-2">
-        <ul class="social-media-list">
-          {% if site.github_username %}
-          <li>
-            {% include icon-github.html username=site.github_username %}
-          </li>
-          {% endif %}
-
-          {% if site.twitter_username %}
-          <li>
-            {% include icon-twitter.html username=site.twitter_username %}
-          </li>
-          {% endif %}
-        </ul>
-      </div>
-
       <div class="footer-col footer-col-3">
         <p>{{ site.description | escape }}</p>
       </div>
+
+      <div class="footer-col footer-col-2">
+        {% include icon-logo.html link=site.sponsorsite caption=site.sponsor %}
+      </div>
+
     </div>
 
   </div>
