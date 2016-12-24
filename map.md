@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Map
-permalink: /Map/
+permalink: /map/
 ---
 
-We're building a map of all the data we collect.
+The current map displays randomly generated datapoints, which will be be replaced with real data once a [device](/about/#device) is completed and deployed. 
 
-The current [map](../colored_circles.html) displays randomly generated datapoints.
+View the map [fullscreen](/colored_circles.html) or on our [homepage](/).
