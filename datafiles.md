@@ -11,5 +11,5 @@ It's what's currently displayed on the [map](../map).
 
 ### Files:
 {% directory path: datafiles %}
-  <a href="../{{ file.url }}" >{{ file.name }}</a>
+  <a href="..{{ file.url }}" >{{ file.name }}</a>
 {% enddirectory %}
