@@ -20,21 +20,21 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     # do the uploading
 
-	echo "establishing ssh tunnel"
+	echo "==> establishing ssh tunnel"
 	# Establish ssh tunnel
 	ssh -nNT -L $port:people.goshen.edu:22 vjkurtz@maxx.goshen.edu &
 	PID=$!
     sleep 2  # wait for tunnel to initialize
 	echo "tunnel PID is $PID"
 
-	echo "Copying $src to $dest"
+	echo "==> Copying $src to $dest"
     scp -r -P $port $src $dest
-    echo "done copying"
+    echo "==> done copying"
 
-    echo "closing tunnel"
+    echo "==> closing tunnel"
 	# Close our ssh tunnel
 	kill $PID
 	trap "kill $PID" 1 2 15
 
-    echo "tunnel closed"
+    echo "==> tunnel closed"
 fi

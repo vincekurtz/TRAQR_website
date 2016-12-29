@@ -16,11 +16,9 @@ Make sure `baseurl` and `url` are set to empty strings in `_config.yml`.
 - Run `push_updates.sh`. This pushes the content of `_site/` to the proper place on the people server.
 
 ### To Do
-- Update about, perhaps with MS description
 - Add datafiles page, work in upload functionality
 - Add button to enable scrolling zoom on the map
 - Disable map buttons if screen too small (mobile)
 - Add people page?
-- Add more detailed info on maps page
 - Add some sort of time filtering to the map
 - [for much later] add pages on the device or other project developments
