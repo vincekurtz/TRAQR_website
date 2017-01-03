@@ -52,6 +52,12 @@ function initMap() {
     centerControlDiv.index = 1;
     map.controls[google.maps.ControlPosition.LEFT_TOP].push(centerControlDiv);
 
+    // Setup for Scroll Toggle Control Box
+    var scrollControlDiv = document.createElement('div');
+    var scrollControl = new ScrollControl(scrollControlDiv, map);
+    scrollControlDiv.index = 1;
+    map.controls[google.maps.ControlPosition.LEFT_TOP].push(scrollControlDiv);
+
     // Setup for Sensor Selection Control Box
     var sensorControlDiv = document.createElement('div');
     var sensorControl = new SensorControl(sensorControlDiv, map);
@@ -203,6 +209,50 @@ function CenterControl(controlDiv, map) {
 
 }
 
+function ScrollControl(controlDiv, map) {
+    // create control box to toggle scroll-to-zoom
+    // @constructor
+
+    // Set CSS for the control border.
+    var controlUI = document.createElement('div');
+    controlUI.style.backgroundColor = '#fff';
+    controlUI.style.border = '2px solid #fff';
+    controlUI.style.borderRadius = '3px';
+    controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
+    controlUI.style.cursor = 'pointer';
+    controlUI.style.marginBottom = '22px';
+    controlUI.style.marginLeft = '10px';
+    controlUI.style.textAlign = 'center';
+    controlUI.title = 'Toggle scroll-to-zoom';
+    controlDiv.appendChild(controlUI);
+
+    // Set CSS for the control interior.
+    var controlText = document.createElement('div');
+    controlText.style.color = 'rgb(25,25,25)';
+    controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+    controlText.style.fontSize = '12px';
+    controlText.style.lineHeight = '20px';
+    controlText.style.paddingLeft = '5px';
+    controlText.style.paddingRight = '5px';
+    controlText.style.fontWeight = 'lighter';
+    controlText.innerHTML = 'Scroll-to-Zoom Disabled';
+    controlUI.appendChild(controlText);
+
+    // Setup the click event listeners: simply set the map to look at GC
+    controlUI.addEventListener('click', function() {
+        var on = map.get('scrollwheel');
+        if (on) {
+            map.set('scrollwheel', false);
+            controlText.style.fontWeight = 'lighter';
+            controlText.innerHTML = 'Scroll-to-Zoom Disabled';
+        } else {
+            map.set('scrollwheel', true);
+            controlText.style.fontWeight = 'bold';
+            controlText.innerHTML = 'Scroll-to-Zoom Enabled';
+        }
+    });
+
+}
 function SensorControl(controlDiv, map) {
     // Create control box to select which sensor data to display
     // @constructor
