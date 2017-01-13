@@ -4,9 +4,9 @@ title: Datafiles
 permalink: "/datafiles/"
 ---
 
-Raw (JSONP) data files are stored on this page.
+Raw (JSON) data files are stored on this page.
 
-For example, `fake_data.js` contains randomly generated data points scattered across the county. 
+For example, `fake_data.json` contains randomly generated data points scattered across the county. 
 It's what's currently displayed on the [map](../map).
 
 ### Files:

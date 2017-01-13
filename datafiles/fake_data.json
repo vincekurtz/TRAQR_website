@@ -1,4 +1,3 @@
-airfeed_callback(
 {
   "type": "FeatureCollection", 
   "features": [
@@ -4203,4 +4202,3 @@ airfeed_callback(
     }
   ]
 }
-);

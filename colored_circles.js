@@ -3,13 +3,13 @@
  * Includes a legend and the ability to switch between datasets.
  *
  * To use with custom data, simply point data_location to a valid
- * jsonp file. This should be structured similar to fake_data.js. 
+ * json file. This should be structured similar to fake_data.json. 
  *
  * Author: Vince Kurtz
  *
  */
 
-var data_location = 'datafiles/fake_data.js'
+var data_location = 'datafiles/fake_data.json';
 
 // global vars
 var map;
@@ -31,12 +31,8 @@ function initMap() {
         scrollwheel: false
     });
 
-    // Create a <script> tag and set the USGS URL as the source.
-    var script = document.createElement('script');
-
-    // Load GeoJSON data
-    script.src = data_location;
-    document.getElementsByTagName('head')[0].appendChild(script);
+    // Load geojson data
+    map.data.loadGeoJson(data_location);
 
     // Display data from the default sensor
     map.data.setStyle(function(feature) {
@@ -78,11 +74,6 @@ function reset_data_display(property, min, max) {
             icon: getCircle(magnitude, min, max)
         };
     });
-}
-
-// Unpack jsonp data
-function airfeed_callback(results) {
-    map.data.addGeoJson(results);
 }
 
 function getCircle(magnitude, min, max) {
