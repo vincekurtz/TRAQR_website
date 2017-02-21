@@ -63,6 +63,23 @@ function initMap() {
     // Set up the legend
     updateLegend(default_min,default_max,default_unit);
     map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
+
+    // Set up info windows
+    var infowindow = new google.maps.InfoWindow();
+
+    map.data.addListener('click', function(event) {
+        var time = event.feature.getProperty("time");
+        var co = event.feature.getProperty("co");
+        var oz;
+        var pm;
+        var vo;
+        var temp;
+        var hum;
+        infowindow.setContent("<div>Time: "+time+"</div><div>Carbon Monoxide: "+co+"</div>");
+        infowindow.setPosition(event.feature.getGeometry().get());
+        infowindow.open(map)
+    });
+
 }
 
 function reset_data_display(property, min, max) {
