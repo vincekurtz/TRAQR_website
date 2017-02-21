@@ -9,7 +9,7 @@
  *
  */
 
-var data_location = 'datafiles/fake_data.json';
+var data_location = 'datafiles/combined_data.json';
 
 // global vars
 var map;
@@ -68,14 +68,23 @@ function initMap() {
     var infowindow = new google.maps.InfoWindow();
 
     map.data.addListener('click', function(event) {
-        var time = event.feature.getProperty("time");
+        var t = event.feature.getProperty("time");
+        // now format the time nicely
+        var time = t.substr(0,4)+"/"+t.substr(4,2)+"/"+t.substr(6,2)+" "+t.substr(8,2)+":"+t.substr(10,2)+":"+t.substr(12,2);
         var co = event.feature.getProperty("co");
-        var oz;
-        var pm;
-        var vo;
-        var temp;
-        var hum;
-        infowindow.setContent("<div>Time: "+time+"</div><div>Carbon Monoxide: "+co+"</div>");
+        var oz = event.feature.getProperty("oz");
+        var pm = event.feature.getProperty("pm");
+        var vo = event.feature.getProperty("vo");
+        var temp = event.feature.getProperty("temp");
+        var hum = event.feature.getProperty("hum");
+        var contentString = "<div><b>Time:</b> "+time+"</div>" +
+            "<div><b>Carbon Monoxide:</b> "+co+" ppm</div>" +
+            "<div><b>Ozone:</b> "+oz+" ppm</div>" +
+            "<div><b>Particulate Matter:</b> "+pm+" ppm</div>" +
+            "<div><b>Volatile Organics:</b> "+vo+" ppm</div>" +
+            "<div><b>Temperature:</b> "+temp+" &deg;F</div>" +
+            "<div><b>Humidity:</b> "+hum+" %</div>";
+        infowindow.setContent(contentString);
         infowindow.setPosition(event.feature.getGeometry().get());
         infowindow.open(map)
     });
