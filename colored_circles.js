@@ -77,8 +77,10 @@ function initMap() {
         var vo = event.feature.getProperty("vo");
         var temp = event.feature.getProperty("temp");
         var hum = event.feature.getProperty("hum");
+        var loc = event.feature.getGeometry().get();
         var contentString = "<div><b>Time:</b> "+time+"</div>" +
             "<div><b>Carbon Monoxide:</b> "+co+" ppm</div>" +
+            "<div><b>Location:</b> "+loc+" </div>" +
             "<div><b>Ozone:</b> "+oz+" ppm</div>" +
             "<div><b>Particulate Matter:</b> "+pm+" ppm</div>" +
             "<div><b>Volatile Organics:</b> "+vo+" ppm</div>" +
