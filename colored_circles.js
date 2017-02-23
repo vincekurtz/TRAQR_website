@@ -64,6 +64,11 @@ function initMap() {
     updateLegend(default_min,default_max,default_unit);
     map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
 
+    // Set up slider control
+    doubleSlider();  // initialize the slider
+    var slider = document.getElementById('slider');
+    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(slider);
+
     // Set up info windows
     var infowindow = new google.maps.InfoWindow();
 
@@ -91,6 +96,32 @@ function initMap() {
         infowindow.open(map)
     });
 
+}
+
+function doubleSlider() {
+    // Create and update the double slider for date range calculation
+  $( function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( " " + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( " " + $( "#slider-range" ).slider( "values", 0 ) +
+      " - " + $( "#slider-range" ).slider( "values", 1 ) );
+  });
+}
+
+function getDateRange() {
+    // Return the most recent and oldest dates we could plot
+    // This will be used to determine the ranges for the double Slider
+}
+
+function setDisplayRange(min_date, max_date) {
+    // Reset the map to only display data from within the specified dates
 }
 
 function reset_data_display(property, min, max) {

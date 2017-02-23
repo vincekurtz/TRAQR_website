@@ -16,6 +16,15 @@
         box-shadow: 0 2px 6px rgba(0,0,0,.3);
 		/*border: 3px solid #000;*/
       }
+      #slider {
+        font-family: Roboto,Arial,sans-serif;
+		background: #fff;
+		padding: 0px 10px 10px 10px;
+		margin: 10px;
+		border-radius: 3px;
+        box-shadow: 0 2px 6px rgba(0,0,0,.3);
+        width: 40%;
+      }
       /* Optional: Makes the sample page fill the window. */
       html, body {
         height: 100%;
@@ -23,10 +32,22 @@
         padding: 0;
       }
     </style>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   </head>
   <body>
     <div id="map"></div>
     <div id="legend"><h3>Legend</h3></div>
+    <div id="slider">
+        <p>
+        <label for="amount"><b>Date Range:<b></label>
+            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+
+        <div id="slider-range"></div>
+    
+    </div>
     <script src=colored_circles.js></script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAtLeNZboIzlS4h3F4_yqc-LtbD7v8YpCs&callback=initMap">
