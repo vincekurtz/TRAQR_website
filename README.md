@@ -17,6 +17,6 @@ Make sure `baseurl` and `url` are set to empty strings in `_config.yml`.
 
 ### To Do
 - Disable map buttons if screen too small (mobile)
-- Add people page?
-- Add some sort of time filtering to the map
+- Add people page
+- Add device page
 - [for much later] add pages on the device or other project developments
