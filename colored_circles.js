@@ -22,6 +22,9 @@ var default_unit = 'ppm';
 var default_min = 0;
 var default_max = 40;
 
+var min_date = 0;
+var max_date = 100;
+
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: default_zoom,
@@ -65,9 +68,16 @@ function initMap() {
     map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
 
     // Set up slider control
-    doubleSlider();  // initialize the slider
-    var slider = document.getElementById('slider');
-    map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(slider);
+    google.maps.event.addListenerOnce(map, 'idle', function() {
+        // Do this once the data has been loaded
+        var date_range = getDateRange();
+        min_date = date_range[0];
+        max_date = date_range[1];
+
+        doubleSlider();  // initialize the slider
+        var slider = document.getElementById('slider');
+        map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(slider);
+    });
 
     // Set up info windows
     var infowindow = new google.maps.InfoWindow();
@@ -100,28 +110,74 @@ function initMap() {
 
 function doubleSlider() {
     // Create and update the double slider for date range calculation
-  $( function() {
-    $( "#slider-range" ).slider({
-      range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
-      slide: function( event, ui ) {
-        $( "#amount" ).val( " " + ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-      }
+    $( function() {
+        my_min = Number(min_date.substr(2,6));   // use YYMMDD format so these values don't get too big
+        my_max = Number(max_date.substr(2,6));
+        $( "#slider-range" ).slider({
+            range: true,
+            min: my_min,
+            max: my_max,
+            values: [ my_min, my_max ],  // show all data by default
+            slide: function( event, ui ) {
+                setDisplayRange(ui.values[0], ui.values[1]);
+
+                minimum = "20" + String(ui.values[0]).substr(0,2) + "/" + String(ui.values[0]).substr(2,2) + "/" + String(ui.values[0]).substr(4,2);
+                maximum = "20" + String(ui.values[1]).substr(0,2) + "/" + String(ui.values[1]).substr(2,2) + "/" + String(ui.values[1]).substr(4,2);
+                $( "#amount" ).val( " " + minimum + " - " + maximum );
+            }
+        });
+
+        // Set the behavior on first load
+        minimum = "20" + String(my_min).substr(0,2) + "/" + String(my_min).substr(2,2) + "/" + String(my_min).substr(4,2);
+        maximum = "20" + String(my_max).substr(0,2) + "/" + String(my_max).substr(2,2) + "/" + String(my_max).substr(4,2);
+        
+        $( "#amount" ).val( minimum + " - " + maximum );
     });
-    $( "#amount" ).val( " " + $( "#slider-range" ).slider( "values", 0 ) +
-      " - " + $( "#slider-range" ).slider( "values", 1 ) );
-  });
 }
 
 function getDateRange() {
     // Return the most recent and oldest dates we could plot
     // This will be used to determine the ranges for the double Slider
+    var max = 0;
+    var min = 99999999999999;  // start with something way big
+    map.data.forEach(function(i) {
+        curr = i.getProperty("time");
+        if (curr > max) {
+            max = curr;
+        } else if (curr < min) {
+            min = curr;
+        }
+    });
+
+    return [min, max];
 }
 
 function setDisplayRange(min_date, max_date) {
     // Reset the map to only display data from within the specified dates
+    // min_date and max_date should be integers represending a date in YYMMDD format
+    var new_data = {
+            "type": "FeatureCollection",
+            "features": []
+        };
+    var old_data;
+    $.ajax({
+      url: data_location,
+      async: false,
+      dataType: 'json',
+      success: function (response) {
+        old_data = response;
+      }
+    });
+  
+    for (i in old_data.features) {
+        t = old_data.features[i].properties.time.substr(2,6);
+        if (min_date <= t && t <= max_date) {
+            new_data.features.push(old_data.features[i]); 
+        }
+    }
+
+    map.data.forEach(function(i) { map.data.remove(i); });  // clear the map
+    map.data.addGeoJson(new_data);      // add selected data back in
 }
 
 function reset_data_display(property, min, max) {
