@@ -19,7 +19,7 @@
       #slider {
         font-family: Roboto,Arial,sans-serif;
 		background: #fff;
-		padding: 0px 10px 0px 10px;
+		padding: 10px 20px 0px 20px;
 		margin: 10px;
 		border-radius: 3px;
         box-shadow: 0 2px 6px rgba(0,0,0,.3);
@@ -40,16 +40,12 @@
     <div id="map"></div>
     <div id="legend"><h3>Legend</h3></div>
     <div id="slider">
-        <p style="font-size: 14px">
+        <div id="slider-range"></div>
+
+        <p style="font-size: 14px; text-align: center; margin: 7px">
         <label for="amount">Date Range:</label>
             <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
         </p>
-
-        <div id="slider-range"></div>
-        <div>
-            <p id=begin_date style="float: left"></p>
-            <p id=end_date style="float: right"></p>
-        </div>
     
     </div>
     <script src=colored_circles.js></script>

@@ -111,8 +111,8 @@ function initMap() {
 function doubleSlider() {
     // Create and update the double slider for date range calculation
     $( function() {
-        my_min = Number(min_date.substr(2,6));   // use YYMMDD format so these values don't get too big
-        my_max = Number(max_date.substr(2,6));
+        my_min = Number(min_date.substr(2,8));   // use YYMMDDHH format so these values don't get too big
+        my_max = Number(max_date.substr(2,8));
         $( "#slider-range" ).slider({
             range: true,
             min: my_min,
@@ -154,7 +154,7 @@ function getDateRange() {
 
 function setDisplayRange(min_date, max_date) {
     // Reset the map to only display data from within the specified dates
-    // min_date and max_date should be integers represending a date in YYMMDD format
+    // min_date and max_date should be integers represending a date in YYMMDDHH format
     var new_data = {
             "type": "FeatureCollection",
             "features": []
@@ -170,7 +170,7 @@ function setDisplayRange(min_date, max_date) {
     });
   
     for (i in old_data.features) {
-        t = old_data.features[i].properties.time.substr(2,6);
+        t = old_data.features[i].properties.time.substr(2,8);
         if (min_date <= t && t <= max_date) {
             new_data.features.push(old_data.features[i]); 
         }
