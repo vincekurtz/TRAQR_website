@@ -11,16 +11,23 @@
 
 var data_location = 'datafiles/combined_data.json';
 
-// global vars
+// global parameters for map
 var map;
 var goshen = {lat: 41.5644, lng: -85.8283};
-var default_zoom = 11;
+var default_zoom = 16;  // bigger numbers are closer
+
+// sensor scales
+var co_max = 9;
+var oz_max = 0.07;
+var pm_max = 12;
+var vo_max = 3;
+var temp_max = 100;
+var hum_max = 100;
 
 // Default property/sensor reading
 var default_prop = 'co';
 var default_unit = 'ppm';
-var default_min = 0;
-var default_max = 9;
+var default_max = co_max;
 
 var min_date = 0;
 var max_date = 100;
@@ -41,7 +48,7 @@ function initMap() {
     map.data.setStyle(function(feature) {
         var magnitude = feature.getProperty(default_prop);
         return {
-            icon: getCircle(magnitude,default_min,default_max)
+            icon: getCircle(magnitude,0,default_max)
         };
     });
 
@@ -64,7 +71,7 @@ function initMap() {
     map.controls[google.maps.ControlPosition.TOP_CENTER].push(sensorControlDiv);
 
     // Set up the legend
-    updateLegend(default_min,default_max,default_unit);
+    updateLegend(0,default_max,default_unit);
     map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
 
     // Set up slider control
@@ -210,7 +217,7 @@ function getColor(val, min, max) {
     if (val > max) { val = max; }
     else if (val < min) { val = min; }
 
-    var h = Math.floor((max+2 - val) * 120 / max);
+    var h = Math.floor((max - val) * 120 / max);
     var s = 1;
     var v = 1;
 
@@ -460,8 +467,8 @@ function SensorControl(controlDiv, map) {
         sensor5Text.style.fontWeight = 'normal';
         sensor6Text.style.fontWeight = 'normal';
 
-        reset_data_display('co',0,9);
-        updateLegend(0,9,'ppm');
+        reset_data_display('co',0,co_max);
+        updateLegend(0,co_max,'ppm');
     });
     sensor2Text.addEventListener('click', function() {
         sensor1Text.style.fontWeight = 'normal';
@@ -471,8 +478,8 @@ function SensorControl(controlDiv, map) {
         sensor5Text.style.fontWeight = 'normal';
         sensor6Text.style.fontWeight = 'normal';
 
-        reset_data_display('oz',0,0.07);
-        updateLegend(0,0.2,'ppm');
+        reset_data_display('oz',0,oz_max);
+        updateLegend(0,oz_max,'ppm');
     });
     sensor3Text.addEventListener('click', function() {
         sensor1Text.style.fontWeight = 'normal';
@@ -482,8 +489,8 @@ function SensorControl(controlDiv, map) {
         sensor5Text.style.fontWeight = 'normal';
         sensor6Text.style.fontWeight = 'normal';
 
-        reset_data_display('pm',0,12);
-        updateLegend(0,12,'ppm');
+        reset_data_display('pm',0,pm_max);
+        updateLegend(0,pm_max,'ppm');
     });
     sensor4Text.addEventListener('click', function() {
         sensor1Text.style.fontWeight = 'normal';
@@ -493,8 +500,8 @@ function SensorControl(controlDiv, map) {
         sensor5Text.style.fontWeight = 'normal';
         sensor6Text.style.fontWeight = 'normal';
 
-        reset_data_display('vo',0,3);
-        updateLegend(0,3,'ppm');
+        reset_data_display('vo',0,vo_max);
+        updateLegend(0,vo_max,'ppm');
     });
     sensor5Text.addEventListener('click', function() {
         sensor1Text.style.fontWeight = 'normal';
@@ -504,8 +511,8 @@ function SensorControl(controlDiv, map) {
         sensor5Text.style.fontWeight = 'bold';
         sensor6Text.style.fontWeight = 'normal';
 
-        reset_data_display('temp',0,100);
-        updateLegend(0,100,'&deg;F');
+        reset_data_display('temp',0,temp_max);
+        updateLegend(0,temp_max,'&deg;F');
     });
     sensor6Text.addEventListener('click', function() {
         sensor1Text.style.fontWeight = 'normal';
@@ -515,7 +522,7 @@ function SensorControl(controlDiv, map) {
         sensor5Text.style.fontWeight = 'normal';
         sensor6Text.style.fontWeight = 'bold';
 
-        reset_data_display('hum',0,100);
-        updateLegend(0,100,'&#37;'); // that's a percent sign
+        reset_data_display('hum',0,hum_max);
+        updateLegend(0,hum_max,'&#37;'); // that's a percent sign
     });
 }
