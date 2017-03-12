@@ -20,7 +20,7 @@ var default_zoom = 11;
 var default_prop = 'co';
 var default_unit = 'ppm';
 var default_min = 0;
-var default_max = 40;
+var default_max = 9;
 
 var min_date = 0;
 var max_date = 100;
@@ -207,14 +207,10 @@ function getColor(val, min, max) {
     // choose a color that represents the value 'val' on  a scale
     // from min to max. Red is high, green is low.
 
-    if (val > max) {
-        val = max;
-    }
-    else if (val < min) {
-        val = min;
-    }
+    if (val > max) { val = max; }
+    else if (val < min) { val = min; }
 
-    var h = Math.floor((max - val) * 120 / max);
+    var h = Math.floor((max+2 - val) * 120 / max);
     var s = 1;
     var v = 1;
 
@@ -464,8 +460,8 @@ function SensorControl(controlDiv, map) {
         sensor5Text.style.fontWeight = 'normal';
         sensor6Text.style.fontWeight = 'normal';
 
-        reset_data_display('co',0,40);
-        updateLegend(0,40,'ppm');
+        reset_data_display('co',0,9);
+        updateLegend(0,9,'ppm');
     });
     sensor2Text.addEventListener('click', function() {
         sensor1Text.style.fontWeight = 'normal';
@@ -475,7 +471,7 @@ function SensorControl(controlDiv, map) {
         sensor5Text.style.fontWeight = 'normal';
         sensor6Text.style.fontWeight = 'normal';
 
-        reset_data_display('oz',0,0.2);
+        reset_data_display('oz',0,0.07);
         updateLegend(0,0.2,'ppm');
     });
     sensor3Text.addEventListener('click', function() {
@@ -486,8 +482,8 @@ function SensorControl(controlDiv, map) {
         sensor5Text.style.fontWeight = 'normal';
         sensor6Text.style.fontWeight = 'normal';
 
-        reset_data_display('pm',0,50);
-        updateLegend(0,50,'ppm');
+        reset_data_display('pm',0,12);
+        updateLegend(0,12,'ppm');
     });
     sensor4Text.addEventListener('click', function() {
         sensor1Text.style.fontWeight = 'normal';
@@ -497,8 +493,8 @@ function SensorControl(controlDiv, map) {
         sensor5Text.style.fontWeight = 'normal';
         sensor6Text.style.fontWeight = 'normal';
 
-        reset_data_display('vo',0,50);
-        updateLegend(0,50,'ppm');
+        reset_data_display('vo',0,3);
+        updateLegend(0,3,'ppm');
     });
     sensor5Text.addEventListener('click', function() {
         sensor1Text.style.fontWeight = 'normal';
